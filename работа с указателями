@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+// копия которая принимает в себя значение и не оказывет никакого влияния на исходную переменную                                 
+int copyA (int b){
+    b=10;
+    return b;
+}
+int refA(int& ref_a){
+    ref_a=20
+    return ref_a;
+}
+int ptrA(int* ptr_a){
+    *ptr_a = 30;
+    return *ptr_al;
+}
+int main(){
+    int a = 1;
+    copyA(a); // значение
+    cout << a << endl;
+    // ссылки - псевдоним той же самой области  в памяти 
+   /* int& ref_a=a;
+    cout << ref_a << ' '<< a;*/
+    refA(a);
+    cout << a << endl;
+    // указатели - особый тип  данных, который хранит адресс объекта 
+    // int* ptr_a=&a;
+    // cout << a << ' ' << &a<<" "<< ptr_a << endl;
+    ptrA(&a);
+    cout << a << endl;
+    return 0;
+}
