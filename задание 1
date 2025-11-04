@@ -5,77 +5,81 @@
 #include <ctime>
 
 using namespace std;
-int* create_random_numbr(int count){
-    if (count<=0) return nullptr;
+int* create_random_numbr(int count) {
+    if (count <= 0) return nullptr;
     int* num = new int[count];
-    if(count==1){
-        num[0] = rand()%10;
-    }else{
-        for(int i =0; i <count-1; i++){
-            num[i]=rand()%10;
+    if (count == 1) {
+        num[0] = rand() % 10;
+    }
+    else {
+        for (int i = 0; i < count - 1; i++) {
+            num[i] = rand() % 10;
         }
-        int hnum=0;
-        do{
-            hnum = rand()%10;
-        }while(hnum==0);
-        num[count-1]=hnum;
+        int hnum = 0;
+        do {
+            hnum = rand() % 10;
+        } while (hnum == 0);
+        num[count - 1] = hnum;
     }
     return num;
 }
-void print_number(int* num, int count){
-    if (!num || count <=0){
+void print_number(int* num, int count) {
+    if (!num || count <= 0) {
         cout << " 0";
         return;
     }
-    for(int i = count - 1; i >=0; i--){
+    for (int i = count - 1; i >= 0; i--) {
         cout << num[i];
     }
     cout << endl;
 }
-int* add_number(int* a,int a_count, int*b, int b_count, int& res_count){
-    if((a_count<=0 && b_count<=0) || (!a && !b)){
+int* add_number(int* a, int a_count, int* b, int b_count, int& res_count) {
+    if ((a_count <= 0 && b_count <= 0) || (!a && !b)) {
         res_count = 0;
         return nullptr;
     }
-    int max_len = (a_count>b_count)?a_count : b_count;
-    int* res = new int[max_len+1];
-    int carry=0;
-    for(int i =0; i < max_len;i++){
-        int da = (i<a_count && a)? a[i] : 0;
-        int db = (i<b_count && b)? b[i] : 0;
-        int sum = da+db+carry;
-        res[i]= sum%10;
-        carry=sum/10;
+    int max_len = (a_count > b_count) ? a_count : b_count;
+    int* res = new int[max_len + 1];
+    int carry = 0;
+    for (int i = 0; i < max_len;i++) {
+        int da = (i < a_count && a) ? a[i] : 0;
+        int db = (i < b_count && b) ? b[i] : 0;
+        int sum = da + db + carry;
+        res[i] = sum % 10;
+        carry = sum / 10;
     }
-    if (carry){
+    if (carry) {
         res[max_len] = carry;
-        res_count=max_len;
-        
+        res_count = max_len + 1;
+
     }
     return res;
 }
-int main(){
+int main() {
     setlocale(LC_ALL, "Russian");
     srand(static_cast<unsigned int>(time(NULL)));
     srand((unsigned)rand());
     int count = 0;
-    cout << "eneter kol vo tsifr";
-    if(!(cin >> count)){
+    cout << "Введите количество цифр : ";
+    if (!(cin >> count)) {
         cerr << " error";
         return 1;
     }
-    int* num1=create_random_numbr(count);
-    int* num2=create_random_numbr(count);
-    print_number(num1,count);
-    print_number(num2,count);
+    int* num1 = create_random_numbr(count);
+    int* num2 = create_random_numbr(count);
+    cout << " Число 1 : ";
+    print_number(num1, count);
+    cout << " Число 2 : ";
+    print_number(num2, count);
     int res_count = 0;
-    int* sum = add_number(num1,count,num2,count,res_count);
+    cout << " Сумма : ";
+    int* sum = add_number(num1, count, num2, count, res_count);
     print_number(sum, res_count);
     delete[] num1;
-    num1=nullptr;
+    num1 = nullptr;
     delete[] num2;
-    num2=nullptr;
+    num2 = nullptr;
     delete[] sum;
-    sum=nullptr;
+    sum = nullptr;
     return 0;
 }
